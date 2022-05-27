@@ -7,8 +7,7 @@
 #' @author Ashley(X) Zhao
 #' @examples xSelectCells(seurat_obj)
 
-library(shiny)
-library(plotly)
+
 library(Seurat)
 # library(ggplot2)
 # library(Cairo)   # For nicer ggplot2 output when deployed on Linux

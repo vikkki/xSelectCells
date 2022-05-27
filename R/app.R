@@ -1,7 +1,5 @@
-
-
-
-
+library(shiny)
+library(plotly)
 
 ui <- fluidPage(
   plotlyOutput("umap_for_brush",
