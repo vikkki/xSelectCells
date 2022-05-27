@@ -1,6 +1,9 @@
 library(shiny)
 library(plotly)
 
+my_color = c("#0B90AA","#7dce94","#B1B336","#04384A","#66638B","#D74B4B","#FF652D","#F6AE2D","#AE8D65","#D8DEAE","#70AB8F")
+getPalette = colorRampPalette(my_color)
+
 ui <- fluidPage(
   plotlyOutput("umap_for_brush",
                width = "auto",
@@ -18,7 +21,7 @@ ui <- fluidPage(
 )
 
 
-server <- function(input, output, input_seurat_obj) {
+server <- function(input, output) {
   
   output$umap_for_brush <- renderPlotly(umap_for_brush())
   
