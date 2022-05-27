@@ -9,6 +9,8 @@
 
 
 library(Seurat)
+library(plotly)
+library(shiny)
 # library(ggplot2)
 # library(Cairo)   # For nicer ggplot2 output when deployed on Linux
 
