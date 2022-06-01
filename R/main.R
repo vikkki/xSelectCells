@@ -85,7 +85,8 @@ xSelectCells <-function(input_seurat_obj) {
               colors = getPalette(length(levels(sc$ident))),
               marker = marker,
               hoverinfo = "all",
-              hovertext = paste0(sc$keys,"\n","nCount:",sc$nCount_RNA,"\n","nFeature:",sc$nFeature_RNA)) %>% layout(dragmode = "lasso", xaxis = ax, yaxis = ax)
+              hovertext = paste0(sc$keys,"\n","nCount:",sc$nCount_RNA,"\n","nFeature:",sc$nFeature_RNA))
+      #%>% layout(dragmode = "lasso", xaxis = ax, yaxis = ax)
       
     })
     
