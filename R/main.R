@@ -32,7 +32,7 @@ xSelectCells <-function(input_seurat_obj) {
   #seurat_obj <<- input_seurat_obj
   
   #ui <- server <- NULL # avoid NOTE about undefined globals
-  
+  library(shiny)
   server_1 <- function(input, output, session) {
     
     output$umap_for_brush <- renderPlotly(umap_for_brush())
