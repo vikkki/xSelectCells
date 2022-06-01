@@ -103,7 +103,7 @@ xSelectCells <-function(input_seurat_obj) {
   #source(file_path, local = TRUE)
   #server_env <- environment(server)
   #rlang::env_binding_unlock(server_env, nms = NULL)
-  print(server_env)
+  #print(server_env)
   #server_env$input_seurat_obj <- input_seurat_obj
   
   #app <- shiny::shinyApp(ui, server)
