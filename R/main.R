@@ -31,6 +31,7 @@ xSelectCells <-function(input_seurat_obj) {
   
   #ui <- server <- NULL # avoid NOTE about undefined globals
   library(shiny)
+  library(dplyr)
   ui_1 <- fluidPage(
     plotly::plotlyOutput("umap_for_brush",
                  width = "auto",
