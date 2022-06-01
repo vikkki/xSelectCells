@@ -1,15 +1,15 @@
 Package: xSelectCells
 Type: Package
-Title: A manual cell barcode selector for Seurat Object
-Version: 0.1.0
+Title: An interactive cell barcode selector for Seurat Object
+Version: 0.1.1
 Author: Ashley(X) Zhao
 Maintainer: AZ <zhao343@usc.edu>
 Description: This package includes tool(s) for single cell analysts to select interested cells interactively.
     A light weight shiny app tool was developed to enable manually selection of cells.
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
-Date: 2022-05-18
 LazyData: true
+Date: 2022-05-18
 Imports: 
     shiny (>= 1.7.1),
     Seurat (>= 4.1.1),

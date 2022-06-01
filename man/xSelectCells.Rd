@@ -6,6 +6,9 @@
 \arguments{
 \item{input_seurat_obj}{a seurat obj with umap reduction}
 }
+\value{
+a list of chr, selected barcode names
+}
 \description{
 A light weight shiny app tool to enable manually selection of cells from seurat object based on its umap reduction
 }
