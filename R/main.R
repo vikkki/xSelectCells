@@ -44,7 +44,7 @@ xSelectCells <- function(input_seurat_obj, type = "GEM") {
     verbatimTextOutput("barcode_brush_info"),
     hr(),
     div(downloadButton("dl_select_cells", "Download selected cell barcodes"), align = "left"),
-    div(actionButton("stop", label = "Comfirm Selection & Return",
+    div(actionButton("stop", label = "Confirm Selection & Return",
                      icon("paper-plane"),
                      style="color: #fff; background-color: #337ab7; border-color: #2e6da4"))
 
@@ -100,7 +100,7 @@ xSelectCells <- function(input_seurat_obj, type = "GEM") {
 
     output$barcode_brush_info <- renderPrint({
       d <- plotly::event_data("plotly_selected")
-      if(is.null(d)) "Select from plot tools and drag to select cells (double-click to clear)."
+      if(is.null(d)) "Drag to select cells (double-click to clear)."
       else {
         cluster_brush_cells(d$key)
         my_barcodes <- d$key
