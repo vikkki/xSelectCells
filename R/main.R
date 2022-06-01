@@ -26,7 +26,7 @@ getPalette = colorRampPalette(my_color)
 
 
 #source("app.R")
-xSelectCells <- function(input_seurat_obj) {
+xSelectCells <- function(input_seurat_obj, type = "GEM") {
   my_barcodes  <- c()
 
   #ui <- server <- NULL # avoid NOTE about undefined globals
@@ -56,10 +56,14 @@ xSelectCells <- function(input_seurat_obj) {
 
     sc_seurat_umap_inter_base <- reactive({
       sc = input_seurat_obj
-      dim(sc)
       ident = as.data.frame(sc@active.ident)
       colnames(ident) <- "ident"
-      embeds = as.data.frame(Seurat::Embeddings(sc[["umap"]]),col.names = T)
+      if(type == "spatial" || type == "spacial"){
+        # for future spatial features
+      }
+      else{
+        embeds = as.data.frame(Seurat::Embeddings(sc[["umap"]]),col.names = T)
+      }
       embeds = cbind.data.frame(embeds, ident)
       embeds$nCount_RNA  = sc@meta.data[["nCount_RNA"]]
       embeds$nFeature_RNA = sc@meta.data[["nFeature_RNA"]]
