@@ -32,7 +32,7 @@ xSelectCells <-function(input_seurat_obj) {
   #ui <- server <- NULL # avoid NOTE about undefined globals
   library(shiny)
   ui_1 <- fluidPage(
-    plotlyOutput("umap_for_brush",
+    plotly::plotlyOutput("umap_for_brush",
                  width = "auto",
                  height = "600px",),
     sliderInput("point_size",
