@@ -38,7 +38,7 @@ xSelectCells <-function(input_seurat_obj) {
 
   #source(file_path, local = TRUE)
   server_env <- environment(server)
-  rlanh::env_binding_unlock(server_env, nms = NULL)
+  rlang::env_binding_unlock(server_env, nms = NULL)
   print(server_env)
   server_env$input_seurat_obj <- input_seurat_obj
   
