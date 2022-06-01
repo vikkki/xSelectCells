@@ -31,7 +31,6 @@ xSelectCells <-function(input_seurat_obj) {
   
   #ui <- server <- NULL # avoid NOTE about undefined globals
   library(shiny)
-  library(dplyr)
   ui_1 <- fluidPage(
     plotly::plotlyOutput("umap_for_brush",
                  width = "auto",
@@ -78,7 +77,7 @@ xSelectCells <-function(input_seurat_obj) {
       )
       
       marker = list(size = input$point_size)
-      
+      library(dplyr)
       plotly::plot_ly(sc,type="scatter", mode = "markers",
               x = ~UMAP_1, y = ~UMAP_2,
               key = ~keys,
@@ -93,7 +92,7 @@ xSelectCells <-function(input_seurat_obj) {
     cluster_brush_cells <- reactiveVal(NULL)
     
     output$barcode_brush_info <- renderPrint({
-      d <- event_data("plotly_selected")
+      d <- plotly::event_data("plotly_selected")
       if(is.null(d)) "Click and drag to select cells (double-click to clear)."
       else {
         cluster_brush_cells(d$key)
