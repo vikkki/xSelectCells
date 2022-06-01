@@ -13,5 +13,6 @@ LazyData: true
 Imports: 
     shiny (>= 1.7.1),
     Seurat (>= 4.1.1),
-    plotly (>= 4.10.0)
+    plotly (>= 4.10.0),
+    dplyr (>= 1.0.9)
 RoxygenNote: 7.2.0
