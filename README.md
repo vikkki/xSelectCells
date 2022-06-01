@@ -6,7 +6,7 @@ This mini app is based on Shiny, Seurat and plotly
 
 ```
 # we'll need to install plotly, dplyr, seurat and shiny first if not already
-devtools::install_github('vikkki/xSelectCells')
+devtools::install_github('vikkki/xSelectCells@main')
 ```
 ## Usage
 
