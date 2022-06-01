@@ -33,6 +33,7 @@ xSelectCells <-function(input_seurat_obj) {
   
   #ui <- server <- NULL # avoid NOTE about undefined globals
   library(shiny)
+  library(plotly)
   server_1 <- function(input, output, session) {
     
     output$umap_for_brush <- renderPlotly(umap_for_brush())
