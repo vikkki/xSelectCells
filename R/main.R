@@ -41,6 +41,7 @@ xSelectCells <-function(input_seurat_obj) {
     hr(),
     
     div(downloadButton("dl_select_cells", "Download selected cell barcodes"), align = "left"),
+    actionButton("stop", label = "stop"),
     hr(),
     h4("Brushed barcodes"),
     verbatimTextOutput("barcode_brush_info")
@@ -111,6 +112,9 @@ xSelectCells <-function(input_seurat_obj) {
         write.table(barcodes,file, quote = TRUE, sep = ",", col.names = FALSE, row.names = FALSE)
       }
     )
+    observe({
+      if (input$stop > 0) stopApp(returnValue = cluster_brush_cells()) # stop shiny
+    })
   }
 
   ui <- ui_1
@@ -123,7 +127,7 @@ xSelectCells <-function(input_seurat_obj) {
   #server_env$input_seurat_obj <- input_seurat_obj
   
   #app <- shiny::shinyApp(ui, server)
-  shiny::runGadget(app = ui, server = server)
-  return(my_barcodes)
+  
+  return(shiny::runGadget(app = ui, server = server))
 
 }
