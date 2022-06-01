@@ -9,8 +9,6 @@
 
 
 library(Seurat)
-library(plotly)
-library(shiny)
 # library(ggplot2)
 # library(Cairo)   # For nicer ggplot2 output when deployed on Linux
 
@@ -33,17 +31,32 @@ xSelectCells <-function(input_seurat_obj) {
   
   #ui <- server <- NULL # avoid NOTE about undefined globals
   library(shiny)
-  library(plotly)
+  ui_1 <- fluidPage(
+    plotlyOutput("umap_for_brush",
+                 width = "auto",
+                 height = "600px",),
+    sliderInput("point_size",
+                "Point size:",
+                min = 0.1,  max = 20, value = 3),
+    hr(),
+    
+    div(downloadButton("dl_select_cells", "Download selected cell barcodes"), align = "left"),
+    hr(),
+    h4("Brushed barcodes"),
+    verbatimTextOutput("barcode_brush_info")
+    
+  )
+  
   server_1 <- function(input, output, session) {
     
-    output$umap_for_brush <- renderPlotly(umap_for_brush())
+    output$umap_for_brush <- plotly::renderPlotly(umap_for_brush())
     
     sc_seurat_umap_inter_base <- reactive({
       sc = input_seurat_obj
       dim(sc)
       ident = as.data.frame(sc@active.ident)
       colnames(ident) <- "ident"
-      embeds = as.data.frame(Embeddings(sc[["umap"]]),col.names = T)
+      embeds = as.data.frame(Seurat::Embeddings(sc[["umap"]]),col.names = T)
       embeds = cbind.data.frame(embeds, ident)
       embeds$nCount_RNA  = sc@meta.data[["nCount_RNA"]]
       embeds$nFeature_RNA = sc@meta.data[["nFeature_RNA"]]
@@ -65,7 +78,7 @@ xSelectCells <-function(input_seurat_obj) {
       
       marker = list(size = input$point_size)
       
-      plot_ly(sc,type="scatter", mode = "markers",
+      plotly::plot_ly(sc,type="scatter", mode = "markers",
               x = ~UMAP_1, y = ~UMAP_2,
               key = ~keys,
               color = ~ident,
@@ -112,21 +125,7 @@ xSelectCells <-function(input_seurat_obj) {
 
 }
 
-ui_1 <- fluidPage(
-  plotlyOutput("umap_for_brush",
-               width = "auto",
-               height = "600px",),
-  sliderInput("point_size",
-              "Point size:",
-              min = 0.1,  max = 20, value = 3),
-  hr(),
 
-  div(downloadButton("dl_select_cells", "Download selected cell barcodes"), align = "left"),
-  hr(),
-  h4("Brushed barcodes"),
-  verbatimTextOutput("barcode_brush_info")
-
-)
 # 
 # server_1 <- function(input, output, session) {
 #   
