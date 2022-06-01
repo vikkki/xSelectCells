@@ -27,7 +27,7 @@ getPalette = colorRampPalette(my_color)
 
 #source("app.R")
 xSelectCells <-function(input_seurat_obj) {
-  #seurat_obj <<- input_seurat_obj
+  my_barcodes  <- c()
   
   #ui <- server <- NULL # avoid NOTE about undefined globals
   library(shiny)
@@ -97,6 +97,7 @@ xSelectCells <-function(input_seurat_obj) {
       if(is.null(d)) "Click and drag to select cells (double-click to clear)."
       else {
         cluster_brush_cells(d$key)
+        my_barcodes <- d$key
         paste0(nrow(d)," barcodes have been selected.")
       }
     })
@@ -123,72 +124,6 @@ xSelectCells <-function(input_seurat_obj) {
   
   #app <- shiny::shinyApp(ui, server)
   shiny::runGadget(app = ui, server = server)
+  return(my_barcodes)
 
 }
-
-
-# 
-# server_1 <- function(input, output, session) {
-#   
-#   output$umap_for_brush <- renderPlotly(umap_for_brush())
-#   
-#   sc_seurat_umap_inter_base <- reactive({
-#     sc = input_seurat_obj
-#     dim(sc)
-#     ident = as.data.frame(sc@active.ident)
-#     colnames(ident) <- "ident"
-#     embeds = as.data.frame(Embeddings(sc[["umap"]]),col.names = T)
-#     embeds = cbind.data.frame(embeds, ident)
-#     embeds$nCount_RNA  = sc@meta.data[["nCount_RNA"]]
-#     embeds$nFeature_RNA = sc@meta.data[["nFeature_RNA"]]
-#     embeds$cluster <- sc@meta.data[["seurat_clusters"]]
-#     embeds$keys <- rownames(embeds)
-#     
-#     return(embeds)
-#   })
-#   
-#   umap_for_brush <- reactive({
-#     
-#     sc = sc_seurat_umap_inter_base()
-#     # -- axits settings
-#     ax <- list(
-#       zeroline = FALSE
-#       # gridcolor = #bdc3c7,
-#       # gridwidth = 1
-#     )
-#     
-#     marker = list(size = input$point_size)
-#     
-#     plot_ly(sc,type="scatter", mode = "markers",
-#             x = ~UMAP_1, y = ~UMAP_2,
-#             key = ~keys,
-#             color = ~ident,
-#             colors = getPalette(length(levels(sc$ident))),
-#             marker = marker,
-#             hoverinfo = "all",
-#             hovertext = paste0(sc$keys,"\n","nCount:",sc$nCount_RNA,"\n","nFeature:",sc$nFeature_RNA)) %>% layout(dragmode = "lasso", xaxis = ax, yaxis = ax)
-#     
-#   })
-#   
-#   cluster_brush_cells <- reactiveVal(NULL)
-#   
-#   output$barcode_brush_info <- renderPrint({
-#     d <- event_data("plotly_selected")
-#     if(is.null(d)) "Click and drag to select cells (double-click to clear)."
-#     else {
-#       cluster_brush_cells(d$key)
-#       paste0(nrow(d)," barcodes have been selected.")
-#     }
-#   })
-#   
-#   output$dl_select_cells <- downloadHandler(
-#     filename = function() {
-#       paste0("Barcode_selected", ".csv")
-#     },
-#     content = function(file) {
-#       barcodes = cluster_brush_cells()
-#       write.table(barcodes,file, quote = TRUE, sep = ",", col.names = FALSE, row.names = FALSE)
-#     }
-#   )
-# }
-# 
