@@ -32,21 +32,6 @@ xSelectCells <-function(input_seurat_obj) {
   #seurat_obj <<- input_seurat_obj
   
   #ui <- server <- NULL # avoid NOTE about undefined globals
-  ui_1 <- fluidPage(
-    plotlyOutput("umap_for_brush",
-                 width = "auto",
-                 height = "600px",),
-    sliderInput("point_size",
-                "Point size:",
-                min = 0.1,  max = 20, value = 3),
-    hr(),
-    
-    div(downloadButton("dl_select_cells", "Download selected cell barcodes"), align = "left"),
-    hr(),
-    h4("Brushed barcodes"),
-    verbatimTextOutput("barcode_brush_info")
-    
-  )
   
   server_1 <- function(input, output, session) {
     
@@ -126,21 +111,21 @@ xSelectCells <-function(input_seurat_obj) {
 
 }
 
-# ui_1 <- fluidPage(
-#   plotlyOutput("umap_for_brush",
-#                width = "auto",
-#                height = "600px",),
-#   sliderInput("point_size",
-#               "Point size:",
-#               min = 0.1,  max = 20, value = 3),
-#   hr(),
-#   
-#   div(downloadButton("dl_select_cells", "Download selected cell barcodes"), align = "left"),
-#   hr(),
-#   h4("Brushed barcodes"),
-#   verbatimTextOutput("barcode_brush_info")
-#   
-# )
+ui_1 <- fluidPage(
+  plotlyOutput("umap_for_brush",
+               width = "auto",
+               height = "600px",),
+  sliderInput("point_size",
+              "Point size:",
+              min = 0.1,  max = 20, value = 3),
+  hr(),
+
+  div(downloadButton("dl_select_cells", "Download selected cell barcodes"), align = "left"),
+  hr(),
+  h4("Brushed barcodes"),
+  verbatimTextOutput("barcode_brush_info")
+
+)
 # 
 # server_1 <- function(input, output, session) {
 #   
