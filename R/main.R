@@ -26,7 +26,7 @@ getPalette = colorRampPalette(my_color)
 
 
 #source("app.R")
-xSelectCells <-function(input_seurat_obj) {
+xSelectCells <- function(input_seurat_obj) {
   my_barcodes  <- c()
   
   #ui <- server <- NULL # avoid NOTE about undefined globals
@@ -39,12 +39,14 @@ xSelectCells <-function(input_seurat_obj) {
                 "Point size:",
                 min = 0.1,  max = 20, value = 3),
     hr(),
-    
-    div(downloadButton("dl_select_cells", "Download selected cell barcodes"), align = "left"),
-    actionButton("stop", label = "stop"),
     hr(),
     h4("Brushed barcodes"),
-    verbatimTextOutput("barcode_brush_info")
+    verbatimTextOutput("barcode_brush_info"),
+    hr(),
+    div(downloadButton("dl_select_cells", "Download selected cell barcodes"), align = "left"),
+    div(actionButton("stop", label = "Comfirm Selection $ Return",
+                     icon("paper-plane"), 
+                     style="color: #fff; background-color: #337ab7; border-color: #2e6da4"))
     
   )
   
@@ -86,8 +88,7 @@ xSelectCells <-function(input_seurat_obj) {
               colors = getPalette(length(levels(sc$ident))),
               marker = marker,
               hoverinfo = "all",
-              hovertext = paste0(sc$keys,"\n","nCount:",sc$nCount_RNA,"\n","nFeature:",sc$nFeature_RNA))
-      #%>% layout(dragmode = "lasso", xaxis = ax, yaxis = ax)
+              hovertext = paste0(sc$keys,"\n","nCount:",sc$nCount_RNA,"\n","nFeature:",sc$nFeature_RNA)) %>% plotly::layout(dragmode = "lasso", xaxis = ax, yaxis = ax)
       
     })
     
@@ -95,7 +96,7 @@ xSelectCells <-function(input_seurat_obj) {
     
     output$barcode_brush_info <- renderPrint({
       d <- plotly::event_data("plotly_selected")
-      if(is.null(d)) "Click and drag to select cells (double-click to clear)."
+      if(is.null(d)) "Select from plot tools and drag to select cells (double-click to clear)."
       else {
         cluster_brush_cells(d$key)
         my_barcodes <- d$key
@@ -131,3 +132,4 @@ xSelectCells <-function(input_seurat_obj) {
   return(shiny::runGadget(app = ui, server = server))
 
 }
+
