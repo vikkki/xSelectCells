@@ -10,6 +10,8 @@ devtools::install_github('vikkki/xSelectCells@main')
 ```
 ## Usage
 
+### UMAP based selection
+
 For the input seurat object, it should include umap reductions (sc[["umap"]]) and UMAP_ as key. Then to lauch shinyapp:
 
 ```
@@ -37,6 +39,22 @@ Listening on http://127.0.0.1:3269
  [9] "AACAACCGTACCCACG-6"  "AGTGCCGAGGTCGCCT-6"  "ATCCTATCACGTTGGC-6"  "ATTCCCGCAAGAGTAT-6" 
 ...
 ```
+### Spatial based selection
+To use the information of coordinates:
+
+```
+xSelectCells::xSelectCells(xSelectCells(secB, type = "spatial", img = "secB")
+```
+Here we the image name under Seurat object's images slot as parameter ```img```, then shinyApp would plot spots associated to this image's coordinates information. (In the sample below it's "secB")
+
+![img](https://raw.githubusercontent.com/vikkki/xSelectCells/main/img/xs5.png)
+
+Select spots:
+
+![img](https://raw.githubusercontent.com/vikkki/xSelectCells/main/img/xs4.png)
+
+
+### Then ...
 Next, you can make a new seurat object by:
 ```
 seurat_obj_sub <- subset(seurat_obj, cells = barcodes)
