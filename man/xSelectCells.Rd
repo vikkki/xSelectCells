@@ -4,19 +4,23 @@
 \alias{xSelectCells}
 \title{Select cells from clusters}
 \arguments{
-\item{input_seurat_obj}{a seurat obj with umap reduction}
+\item{input_seurat_obj}{a Seurat obj with umap reduction}
+
+\item{type}{single cell experiment type, default is "GEM", and UMAP would be used to plot cells. Set to "spatial" to plot based on spots location.}
+
+\item{img}{image name under Seurat object's images slot, would plot spots associated to this image's coordinates information.}
 }
 \value{
 a list of chr, selected barcode names
 }
 \description{
-A light weight shiny app tool to enable manually selection of cells from seurat object based on its umap reduction
+A light weight shiny app tool to enable manually selection of cells from Seurat object based on its umap reduction
 }
 \details{
 xSelectCells
 }
 \examples{
-xSelectCells(seurat_obj)
+xSelectCells(seurat_obj); xSelectCells(seurat_obj, type = "spatial", img = "image")
 }
 \author{
 Ashley(X) Zhao

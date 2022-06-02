@@ -8,7 +8,7 @@
 #' @return a list of chr, selected barcode names
 #' @export
 #' @author Ashley(X) Zhao
-#' @examples xSelectCells(seurat_obj)
+#' @examples xSelectCells(seurat_obj); xSelectCells(seurat_obj, type = "spatial", img = "image")
 
 
 library(Seurat)
