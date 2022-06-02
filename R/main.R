@@ -1,8 +1,10 @@
 #' xSelectCells
 #' @name xSelectCells
 #' @title Select cells from clusters
-#' @description  A light weight shiny app tool to enable manually selection of cells from seurat object based on its umap reduction
-#' @param input_seurat_obj a seurat obj with umap reduction
+#' @description  A light weight shiny app tool to enable manually selection of cells from Seurat object based on its umap reduction
+#' @param input_seurat_obj a Seurat obj with umap reduction
+#' @param type single cell experiment type, default is "GEM", and UMAP would be used to plot cells. Set to "spatial" to plot based on spots location.
+#' @param img image name under Seurat object's images slot, would plot spots associated to this image's coordinates information.
 #' @return a list of chr, selected barcode names
 #' @export
 #' @author Ashley(X) Zhao
@@ -26,15 +28,15 @@ getPalette = colorRampPalette(my_color)
 
 
 #source("app.R")
-xSelectCells <- function(input_seurat_obj, type = "GEM") {
+xSelectCells <- function(input_seurat_obj, type = "GEM", img = "image") {
   my_barcodes  <- c()
 
   #ui <- server <- NULL # avoid NOTE about undefined globals
-  library(shiny)
+
   ui_1 <- fluidPage(
     plotly::plotlyOutput("umap_for_brush",
-                 width = "auto",
-                 height = "600px",),
+                         width = "auto",
+                         height = "500px",),
     sliderInput("point_size",
                 "Point size:",
                 min = 0.1,  max = 20, value = 3),
@@ -58,16 +60,28 @@ xSelectCells <- function(input_seurat_obj, type = "GEM") {
       sc = input_seurat_obj
       ident = as.data.frame(sc@active.ident)
       colnames(ident) <- "ident"
+      library(dplyr)
       if(type == "spatial" || type == "spacial"){
-        # for future spatial features
+        embeds = sc@images[[img]]@coordinates
+
+        embeds$X = embeds$col
+        embeds$Y = -embeds$row
+
+        embeds = embeds[,colnames(embeds) %in% c("X","Y")]
+        embeds$nCount  = sc@meta.data[["nCount_Spatial"]]
+        embeds$nFeature = sc@meta.data[["nFeature_Spatial"]]
+
       }
       else{
         embeds = as.data.frame(Seurat::Embeddings(sc[["umap"]]),col.names = T)
+        colnames(embeds) <- c("X","Y")
+        embeds$nCount  = sc@meta.data[["nCount_RNA"]]
+        embeds$nFeature = sc@meta.data[["nFeature_RNA"]]
       }
+
       embeds = cbind.data.frame(embeds, ident)
-      embeds$nCount_RNA  = sc@meta.data[["nCount_RNA"]]
-      embeds$nFeature_RNA = sc@meta.data[["nFeature_RNA"]]
-      embeds$cluster <- sc@meta.data[["seurat_clusters"]]
+
+      #embeds$cluster <- sc@meta.data[["seurat_clusters"]]
       embeds$keys <- rownames(embeds)
 
       return(embeds)
@@ -86,13 +100,13 @@ xSelectCells <- function(input_seurat_obj, type = "GEM") {
       marker = list(size = input$point_size)
       library(dplyr)
       plotly::plot_ly(sc,type="scatter", mode = "markers",
-              x = ~UMAP_1, y = ~UMAP_2,
-              key = ~keys,
-              color = ~ident,
-              colors = getPalette(length(levels(sc$ident))),
-              marker = marker,
-              hoverinfo = "all",
-              hovertext = paste0(sc$keys,"\n","nCount:",sc$nCount_RNA,"\n","nFeature:",sc$nFeature_RNA)) %>% plotly::layout(dragmode = "lasso", xaxis = ax, yaxis = ax)
+                      x = ~X, y = ~Y,
+                      key = ~keys,
+                      color = ~ident,
+                      colors = getPalette(length(levels(sc$ident))),
+                      marker = marker,
+                      hoverinfo = "all",
+                      hovertext = paste0(sc$keys,"\n","nCount:",sc$nCount,"\n","nFeature:",sc$nFeature)) %>% plotly::layout(dragmode = "lasso", xaxis = ax, yaxis = ax)
 
     })
 
