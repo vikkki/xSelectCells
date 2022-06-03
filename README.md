@@ -47,7 +47,7 @@ xSelectCells::xSelectCells(xSelectCells(secB, type = "spatial", img = "secB")
 ```
 Here we the image name under Seurat object's images slot as parameter ```img```, then shinyApp would plot spots associated to this image's coordinates information. (In the sample below it's "secB")
 
-![img](https://raw.githubusercontent.com/vikkki/xSelectCells/main/img/sx5.png)
+![img](https://raw.githubusercontent.com/vikkki/xSelectCells/main/img/sx5.png){ width=50% }
 
 Select spots:
 
