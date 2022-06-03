@@ -13,7 +13,7 @@ devtools::install_github('vikkki/xSelectCells@main')
 To start, you can prepare your own data (normal single cell expression or spatial data) or use the example dataset included in the package by:
 
 ```
-seurat_obj <- data(tiny_barin, package = "xSelectCells")
+data(tiny_barin, package = "xSelectCells")
 ```
 It's a sub-dataset of mouse anterior from 10X Genomics Visium Sagittal Mouse Brain [here](https://support.10xgenomics.com/spatial-gene-expression/datasets/1.0.0/V1_Mouse_Brain_Sagittal_Anterior) and imported by ```stxBrain.SeuratData```.
 
