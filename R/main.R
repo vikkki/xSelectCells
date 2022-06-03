@@ -8,7 +8,8 @@
 #' @return a list of chr, selected barcode names
 #' @export
 #' @author Ashley(X) Zhao
-#' @examples xSelectCells(seurat_obj); xSelectCells(seurat_obj, type = "spatial", img = "image")
+#' @examples xSelectCells(seurat_obj)
+#' @examples xSelectCells(seurat_obj, type = "spatial", img = "anterior1")
 
 
 library(Seurat)
@@ -30,6 +31,7 @@ getPalette = colorRampPalette(my_color)
 #source("app.R")
 xSelectCells <- function(input_seurat_obj, type = "GEM", img = "image") {
   my_barcodes  <- c()
+  library(shiny)
 
   #ui <- server <- NULL # avoid NOTE about undefined globals
 

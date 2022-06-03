@@ -20,7 +20,8 @@ A light weight shiny app tool to enable manually selection of cells from Seurat 
 xSelectCells
 }
 \examples{
-xSelectCells(seurat_obj); xSelectCells(seurat_obj, type = "spatial", img = "image")
+xSelectCells(seurat_obj)
+xSelectCells(seurat_obj, type = "spatial", img = "anterior1")
 }
 \author{
 Ashley(X) Zhao
