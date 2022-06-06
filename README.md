@@ -27,7 +27,7 @@ xSelectCells::xSelectCells(seurat_obj)
 barcodes <- xSelectCells::xSelectCells(seurat_obj)
 ```
 ![interface](https://raw.githubusercontent.com/vikkki/xSelectCells/main/img/xs1.png)
-888
+***
 Select cells with lasso or rectangular tools, and download selected cells anytime by click "Download" button:
 
 ![select](https://raw.githubusercontent.com/vikkki/xSelectCells/main/img/xs2.png)
