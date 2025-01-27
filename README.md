@@ -74,4 +74,4 @@ DimPlot(seurat_obj, cells.highlight = c(barcode))
 And any further explorations.
 
 ## Future features
-I'm still working on extracting coor info from spatial obj, expecially whenther is more than one slides. Really hope that this mini tool would save your a cup of coffe time during research! And any suggestion and idea would be more than welcome 🌶🌶🌶
+I'm still working on extracting color info from spatial obj, expecially whenther is more than one slides. Really hope that this mini tool would save your a cup of coffe time during research! And any suggestion and idea would be more than welcomed 🌶🌶🌶
